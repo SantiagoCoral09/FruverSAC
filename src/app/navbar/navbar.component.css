@@ -1,0 +1,13 @@
+.carrito {
+    color: white;
+    font-weight: bolder;
+}
+
+.carrito:hover {
+    color: black;
+}
+
+.nav1 {
+    padding: 10px 15px 10px 15px;
+    border-bottom: 2px solid black;
+}

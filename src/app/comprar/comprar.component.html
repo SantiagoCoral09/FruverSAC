@@ -1,0 +1,105 @@
+<app-navbar></app-navbar>
+<section class="page-section" id="contact">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0">Registra tu dirección para mantenernos en contacto</h2>
+                <hr class="divider" />
+                <p class="text-muted mb-5">¡Envíanos un mensaje y nos contactaremos contigo lo antes posible!</p>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+            <div class="col-lg-6">
+
+                <form id="contactForm" data-sb-form-api-token="API_TOKEN" (ngSubmit)="onSubmit()" #productoForm="ngForm">
+                    <!-- Name input-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="nombre" name="nombre" [(ngModel)]="compra.nombres" type="text"
+                                    placeholder="Enter your name..." data-sb-validations="required" required />
+                                <label for="nombre">Escriba su nombre</label>
+                                <div class="invalid-feedback" data-sb-feedback="nombre:required">Este campo es
+                                    obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="direccion" name="direccion" [(ngModel)]="compra.direccion" type="text"
+                                    placeholder="Enter your direction..." data-sb-validations="required" required />
+                                <label for="direccion">Dirección de residencia</label>
+                                <div class="invalid-feedback" data-sb-feedback="direccion:required">Este campo es
+                                    obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" name="email" [(ngModel)]="compra.correo" type="email"
+                                    placeholder="Enter your email..." data-sb-validations="required" required />
+                                <label for="email">Correo electrónico</label>
+                                <div class="invalid-feedback" data-sb-feedback="email:required">Este campo es
+                                    obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <select id="pago" name="pago" [(ngModel)]="compra.metodo_pago" class="form-control" required>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="transferencia bancaria">Transferencia Bancaria</option>
+                                    <option value="tarjeta de credito">Tarjeta de crédito</option>
+                                    <option value="tarjeta debito">Tarjeta debito</option>
+
+                                </select><br>
+
+                                <label for="pago">Elija Método de pago</label>
+                                <div class="invalid-feedback" data-sb-feedback="pago:required">Este campo es
+                                    obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Submit Button-->
+                    <div class="d-grid"><button class="btn btn-primary btn-xl" [disabled]="!productoForm.form.valid" id="submitButton"
+                            type="submit">Enviar</button></div>
+                </form>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                <i class="bi-phone fs-2 mb-3 text-muted"></i>
+                <div>+57 (312) 2913686 </div>Contáctanos
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade show" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: block;" aria-modal="true" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header text-bg-success">
+          <h1 class="modal-title fs-5" id="exampleModalCenterTitle">Su compra ha sido exitosa</h1>
+          <button type="button" class="btn-close text-bg-success" data-bs-dismiss="modal" aria-label="Close" (click)="aceptarModal()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex justify-content-center">
+                <img src="../../assets/2.png" width="250">
+                
+            </div><br>
+          <p class="text-center">Los productos seran enviados a su dirección de residencia, <br> puede contáctarnos al numero 3122913686.</p>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-success" (click)="aceptarModal()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  

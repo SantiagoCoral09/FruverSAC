@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+<section class="py-2">
+
+    <!-- Mostrar paginacion -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" *ngIf="currentPage > 1"><button class="page-link" (click)="gotoPage(currentPage-1)">Previous: {{currentPage-1}}</button></li>
+            <li *ngFor="let page of paginas" class="page-item"><button class="page-link" (click)="gotoPage(page)">{{page}}</button></li>
+            <li class="page-item" *ngIf="currentPage < totalPages"><button class="page-link"
+                    (click)="gotoPage(currentPage+1)">Next: {{currentPage+1}}</button></li>
+        </ul>
+    </nav>
+    <!-- Fin mostrar paginacion -->
+
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2>Todos nuestros productos</h2>
+        <br>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+
+            <div class="col mb-5" *ngFor="let producto of productos | async as list">
+                <div class="card h-100">
+                    <form (ngSubmit)="crearCarrito();abrirModal(producto)">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="{{ producto.imagen }}" alt="{{ producto.imagen }}" />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ producto.nombre }}</h5>
+                                <h6>{{producto.descripcion | slice:0:50}} ...</h6>
+                                <!-- Product price-->
+                                $ {{producto.precio}}
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal"
+                                    data-bs-target="#modalProducto" type="submit">Añadir al carrito</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" [class.active]="mostrarModal" id="modalProducto" tabindex="-1" role="dialog"
+        aria-labelledby="modalProductoLabel" aria-hidden="true" [hidden]="!productoSeleccionado">
+        <!-- <div class="modal" tabindex="-1" role="dialog" *ngIf="productoSeleccionado"> -->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form #productoForm="ngForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{productoSeleccionado?.idProducto}}: {{ productoSeleccionado?.nombre }}
+                        </h5>
+                        <!-- <button type="button" class="close" aria-label="Close" (click)="cerrarModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img [src]="productoSeleccionado?.imagen" alt="{{ productoSeleccionado?.imagen }}"
+                            width="400px" />
+                        <p>{{ productoSeleccionado?.descripcion }}</p>
+                        <p>Precio: ${{ productoSeleccionado?.precio }}</p>
+                        <p>Disponibles: {{ productoSeleccionado?.cantidad_producto }}</p>
+                        Cantidad<input type="number" class="form-control" [(ngModel)]="cantidad" name="cantidad" min="1"
+                            max="{{productoSeleccionado?.cantidad_producto}}">
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            *ngIf="productoSeleccionado && cantidad<=productoSeleccionado.cantidad_producto && cantidad>0"
+                            type="button" class="btn btn-primary"
+                            (click)="agregarAlCarrito(productoSeleccionado,cantidad)">Agregar al
+                            carrito</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <!-- <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Paginacion inf -->
+    <div class=" justify-content-center">
+        <!-- Mostrar los enlaces de paginación -->
+        <div class="pagination justify-content-center">
+            <span class="ir_A">Registros de {{((currentPage-1)*10)+1}} a: {{((currentPage-1)*10)+10}} <br>Total:
+                {{totalProductos}}</span>
+            <button *ngFor="let page of paginas" (click)="gotoPage(page)" class="page-link">{{ page
+                }}</button>
+        </div>
+    </div>
+</section>
+<br><br>

@@ -1,0 +1,94 @@
+<app-navbar></app-navbar>
+<div class="listar">
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-center">
+      <h3>{{titulo}}</h3>
+    </div>
+    <br>
+    <div class="row">
+      <form (ngSubmit)="onSubmit()" #productoForm="ngForm">
+        <div class="row justify-content-center align-items-center listar">
+          <div class="col">
+            <fieldset class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label" for="nombre">Nombre</label>
+                <input type="text" class="form-control" required [(ngModel)]="producto.nombre" name="nombre">
+              </div>
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label" for="precio">Precio</label>
+                <input type="number" class="form-control" required [(ngModel)]="producto.precio" name="precio">
+              </div>
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label" for="cantidad_producto">Cantidad</label>
+                <input type="number" class="form-control" required [(ngModel)]="producto.cantidad_producto"
+                  name="cantidad_producto">
+              </div>
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label" for="categoria">Categoría</label>
+                <!-- <select name="categoria" id="categoria" class="form-control" [(ngModel)]="producto.categoria">
+                  <option value="Frutas frescas" [selected]="producto.categoria === 'Frutas frescas'">Frutas frescas</option>
+                  <option value="Verduras frescas" [selected]="producto.categoria==='Verduras frescas'">Verduras frescas</option>
+                  <option value="Hierbas y especias" [selected]="producto.categoria=='Hierbas y especias'">Hierbas y especias</option>
+                  <option value="Frutos secos y semillas" [selected]="producto.categoria=='Frutos secos y semillas'">Frutos secos y semillas</option>
+                  <option value="Exoticos y tropicales" [selected]="producto.categoria=='Exoticos y tropicales'">Exóticos y tropicales</option>
+                </select> -->
+
+                <select name="categoria" class="form-control" [(ngModel)]="producto.categoria">
+
+                  <option *ngFor="let item of categorias" [value]="item" [selected]="producto.categoria===item">{{item}}
+                  </option>
+                </select>
+                <!-- <input type="text" class="form-control" required [(ngModel)]="producto.descripcion" name="detalle"> -->
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <br>
+        <div class="row justify-content-center align-items-center listar">
+          <div class="col">
+            <fieldset class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label" for="descripcion">Descripcion</label>
+                <!-- <input type="text" class="form-control" required [(ngModel)]="producto.descripcion"
+                  name="descripcion" id="descripcion"> -->
+                <textarea class="form-control" required [(ngModel)]="producto.descripcion" name="descripcion"
+                  id="descripcion" rows="3"></textarea>
+
+              </div>
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="form-group">
+              <div class="col-sm-12">
+                <label class="control-label" for="imagen">URL de la imagen</label>
+                <!-- <input type="text" class="form-control" required [(ngModel)]="producto.imagen"
+                  name="imagen" id="imagen"> -->
+                <textarea class="form-control" required [(ngModel)]="producto.imagen" name="imagen" id="imagen"
+                  rows="3"></textarea>
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+          
+            <button type="submit" class="btn btn-primary" [disabled]="!productoForm.form.valid">Enviar</button>
+        </div>
+      </form>
+    </div><br>
+  </div>
+</div>

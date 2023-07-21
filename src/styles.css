@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+.desc{
+    width: 50%;
+}
+
+.listar{
+    padding: 0px 10px 0px 10px;
+}
+
+.nuevo_producto{
+    padding-right: 10px;
+}
+
+.paginacion{
+    padding-left: 10px;
+}
+
+.ir_A{
+    margin-top: 3px;
+    font-size: 13px;
+    font-weight: bolder;
+    font-style: italic;
+    padding: 0 10px 0 10px;
+}
