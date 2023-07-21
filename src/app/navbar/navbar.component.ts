@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   productosEnCarrito: Observable<ProductosCarritoModel[]> | undefined;
 
   total_en_carrito: number = 0;
-  categorias = ["Frutas frescas", "Verduras frescas", "Hierbas y especias", "Frutos secos y semillas", "Exoticos y tropicales","Tubérculos y hortalizas"];
+  categorias = ["Frutas frescas", "Verduras frescas", "Hierbas y especias", "Frutos secos y semillas", "Exóticos y tropicales","Tubérculos y hortalizas"];
   // valorTotalAntes: number = 0;
   // valorParcial: number = 0;
   // precioProd: number = 0;
