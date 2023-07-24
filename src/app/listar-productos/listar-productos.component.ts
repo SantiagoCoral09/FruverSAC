@@ -17,6 +17,8 @@ export class ListarProductosComponent implements OnInit {
   totalProductos = 0;
   categoria=''
 
+  categorias = ["Frutas frescas", "Verduras frescas", "Hierbas y especias", "Frutos secos y semillas", "Exóticos y tropicales","Tubérculos y hortalizas"];
+
   ///Para mostrar el modal
   mostrarModal: boolean = false;
   productoSeleccionado: ProductoModel | undefined;
@@ -30,17 +32,22 @@ export class ListarProductosComponent implements OnInit {
   constructor(private productoService: ProductoService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.obtenerProductosPaginados();
+    this.route.paramMap.subscribe(params => {
+      const categoria = params.get('categoria');
+      // Hacer algo con el valor de 'categoria', por ejemplo, llamar a una función que cargue los productos de esa categoría
+      this.obtenerProductosPaginados(categoria);
+    });
+    // this.obtenerProductosPaginados();
   }
 
-  obtenerProductosPaginados() {
-    const categoria = this.route.snapshot.paramMap.get('categoria');
+  obtenerProductosPaginados(categoria: string | null | undefined) {
+    // const categoria = this.route.snapshot.paramMap.get('categoria');
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     if (categoria) {
-    this.categoria=categoria;
+    this.categoria=this.categorias[parseInt(categoria)];
 
-      this.productoService.obtenerProductosByCategoria(categoria).subscribe((productos) => {
+      this.productoService.obtenerProductosByCategoria(this.categorias[parseInt(categoria)]).subscribe((productos) => {
         this.productos = of(productos.slice(startIndex, endIndex));
         this.totalPages = this.calculateTotalPages(productos.length);
         this.totalProductos = productos.length;
@@ -62,13 +69,23 @@ export class ListarProductosComponent implements OnInit {
 
   gotoPage(page: number) {
     this.currentPage = page;
-    this.obtenerProductosPaginados();
+    // this.obtenerProductosPaginados();
+    this.route.paramMap.subscribe(params => {
+      const categoria = params.get('categoria');
+      // Hacer algo con el valor de 'categoria', por ejemplo, llamar a una función que cargue los productos de esa categoría
+      this.obtenerProductosPaginados(categoria);
+    });
   }
 
   borrarProducto(idProducto: string) {
     this.productoService.borrarProducto(idProducto).subscribe(() => {
       console.log("Registro eliminado correctamente");
-      this.obtenerProductosPaginados();
+      // this.obtenerProductosPaginados();
+      this.route.paramMap.subscribe(params => {
+        const categoria = params.get('categoria');
+        // Hacer algo con el valor de 'categoria', por ejemplo, llamar a una función que cargue los productos de esa categoría
+        this.obtenerProductosPaginados(categoria);
+      });
     });
   }
 }

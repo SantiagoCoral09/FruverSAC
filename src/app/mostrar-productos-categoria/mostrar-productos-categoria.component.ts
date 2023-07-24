@@ -6,7 +6,7 @@ import { ProductoModel } from '../shared/producto.model';
 import { ProductoService } from '../shared/producto.service';
 import { ProductosCarritoService } from '../shared/productos-carrito.service';
 import { ProductosCarritoModel } from '../shared/productos_carrito.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-mostrar-productos-categoria',
@@ -35,20 +35,31 @@ export class MostrarProductosCategoriaComponent implements OnInit {
   productoCarrito = new ProductosCarritoModel("", "", "", 0, 0, this.product);
   // productoCarrito = new ProductosCarritoModel("", "", "", 0, 0,"",0,0,"","","");
 
-  constructor(private carritoService: CarritoService, private productoService: ProductoService, private productosCarritoService: ProductosCarritoService, private route: ActivatedRoute) { }
+  categorias = ["Frutas frescas", "Verduras frescas", "Hierbas y especias", "Frutos secos y semillas", "Exóticos y tropicales","Tubérculos y hortalizas"];
+
+  constructor(private carritoService: CarritoService, private productoService: ProductoService, private productosCarritoService: ProductosCarritoService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.obtenerProductosPaginados();
+    this.route.paramMap.subscribe(params => {
+      const categoria = params.get('categoria');
+      // Hacer algo con el valor de 'categoria', por ejemplo, llamar a una función que cargue los productos de esa categoría
+      this.obtenerProductosPaginados(categoria);
+    });
+    // this.obtenerProductosPaginados();
   }
 
-  obtenerProductosPaginados() {
-    const categoria = this.route.snapshot.paramMap.get('categoria');
+  obtenerProductosPaginados(categoria: string | null | undefined) {
+    // const categoria = this.route.snapshot.paramMap.get('categoria');
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-
+    console.log("Categoria",categoria);
     if (categoria) {
-      this.cat = categoria;
-      this.productoService.obtenerProductosByCategoria(categoria).subscribe((productos) => {
+      
+      console.log(categoria);
+      console.log(this.categorias[parseInt(categoria)]);
+      // this.cat = categoria;
+      this.cat = this.categorias[parseInt(categoria)];
+      this.productoService.obtenerProductosByCategoria(this.categorias[parseInt(categoria)]).subscribe((productos) => {
         this.productos = of(productos.slice(startIndex, endIndex));
         this.paginas = this.calcularPaginas(productos.length);
         this.totalProductos = productos.length;
@@ -65,8 +76,11 @@ export class MostrarProductosCategoriaComponent implements OnInit {
 
   gotoPage(page: number) {
     this.currentPage = page;
-    this.obtenerProductosPaginados();
-  }
+    this.route.paramMap.subscribe(params => {
+      const categoria = params.get('nombre_de_tu_parametro');
+      // Hacer algo con el valor de 'categoria', por ejemplo, llamar a una función que cargue los productos de esa categoría
+      this.obtenerProductosPaginados(categoria);
+    });  }
 
   /////Mostrar modal con detalles del producto
   abrirModal(producto: ProductoModel) {

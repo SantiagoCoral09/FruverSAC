@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ComprarComponent } from './comprar/comprar.component';
 import { MostrarProductosCategoriaComponent } from './mostrar-productos-categoria/mostrar-productos-categoria.component';
 import { ListarProductosCategoriaComponent } from './listar-productos-categoria/listar-productos-categoria.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ListarProductosCategoriaComponent } from './listar-productos-categoria/
     NavbarComponent,
     ComprarComponent,
     MostrarProductosCategoriaComponent,
-    ListarProductosCategoriaComponent
+    ListarProductosCategoriaComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

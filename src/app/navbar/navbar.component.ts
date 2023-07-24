@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CarritoModel } from '../shared/carrito.model';
 import { CarritoService } from '../shared/carrito.service';
@@ -26,14 +27,15 @@ export class NavbarComponent implements OnInit {
 
   total_en_carrito: number = 0;
   categorias = ["Frutas frescas", "Verduras frescas", "Hierbas y especias", "Frutos secos y semillas", "Exóticos y tropicales","Tubérculos y hortalizas"];
+  categoriasIndex=[0,1,2,3,4,5];
   // valorTotalAntes: number = 0;
   // valorParcial: number = 0;
   // precioProd: number = 0;
   // valorParcialNuevo: number = 0;
   // valorTotalNueva: number = 0;
+  categoriaSeleccionada: string = '';
 
-
-  constructor(private carritoService: CarritoService, private productosCarritoService: ProductosCarritoService, private productoService: ProductoService) { }
+  constructor(private carritoService: CarritoService, private productosCarritoService: ProductosCarritoService, private productoService: ProductoService, private router: Router) { }
 
   ngOnInit() {
     const idCarritoSesion = sessionStorage.getItem("idCarritoS");
@@ -183,5 +185,14 @@ export class NavbarComponent implements OnInit {
       });
     }
 
+  }
+
+  navegarACategoria() {
+    console.log(this.categoriaSeleccionada);
+    if (this.categoriaSeleccionada) {
+      // Aquí utilizas la función navigate del Router para redirigir a la categoría seleccionada
+      this.router.navigate([`/mostrar_productos_categoria/${this.categoriaSeleccionada}`]);
+      // window.location.reload();
+    }
   }
 }

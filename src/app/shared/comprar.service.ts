@@ -7,7 +7,7 @@ import { CompraModel } from './compras.model';
 })
 export class ComprarService {
 
-  BASE_URL = 'https://fruver-sac.onrender.com/';
+  BASE_URL = 'https://fruver-sac.onrender.com';
   constructor(private http: HttpClient) {
 
   }

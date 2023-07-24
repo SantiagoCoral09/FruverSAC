@@ -17,10 +17,10 @@
                             Categorias
                         </button>
                         <ul class="dropdown-menu dropdown-menu-light bg-dark">
-                            <li><a class="dropdown-item" href="/mostrar_productos"
+                            <li><a class="dropdown-item" routerLink="/mostrar_productos"
                                 >Todos los productos</a></li>
-                            <li><a *ngFor="let item of categorias" class="dropdown-item" href="/mostrar_productos_categoria/{{item}}"
-                                    >{{item}}</a></li>
+                            <li><a *ngFor="let item of categoriasIndex" class="dropdown-item" routerLink="/mostrar_productos_categoria/{{item}}"
+                                    >{{categorias[item]}}</a></li>
                             
                         </ul>
                     </div>
@@ -38,9 +38,8 @@
                             Administrar productos
                         </button>
                         <ul class="dropdown-menu dropdown-menu-light bg-dark">
-                            <li><a *ngFor="let item of categorias" class="dropdown-item"
-                                href="/productos/{{item}}">{{item}}</a></li>
-                            <li><a class="dropdown-item" aria-current="page" href="/productos">Todos los productos</a></li>
+                            <li><a *ngFor="let item of categoriasIndex" class="dropdown-item" routerLink="/productos/{{item}}">{{categorias[item]}}</a></li>
+                            <li><a class="dropdown-item" aria-current="page" routerLink="/productos">Todos los productos</a></li>
                         </ul>
                     </div>
                 </li>

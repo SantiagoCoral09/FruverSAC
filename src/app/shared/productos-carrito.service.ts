@@ -8,7 +8,7 @@ import { ProductosCarritoModel } from './productos_carrito.model';
 })
 export class ProductosCarritoService {
 
-  BASE_URL = 'https://fruver-sac.onrender.com/';
+  BASE_URL = 'https://fruver-sac.onrender.com';
 
   constructor(private http: HttpClient) {
 

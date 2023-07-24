@@ -6,7 +6,7 @@ import { CarritoModel } from './carrito.model';
   providedIn: 'root'
 })
 export class CarritoService {
-  BASE_URL = 'https://fruver-sac.onrender.com/';
+  BASE_URL = 'https://fruver-sac.onrender.com';
 
   constructor(private http: HttpClient) { }
 
